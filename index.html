@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="pico-master/css/pico.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body class="md">
+    <main class="container">
+        <h1>Poänguträknare</h1>
+        <article>
+            <label for="title">Kursbenämning</label>
+            <input id="title" type="text">
+
+            <label for="title">Termin</label>
+            <input id="term" type="number" value="1">
+
+            <button class="" id="add_course" onclick="addCourse()">Lägg till</button>
+        </article>
+
+        <article>
+            <details>
+                <summary>Importera/exportera</summary>
+                <h3>Exportera</h3>
+                <button onclick="exportToJson()">Exportera</button>
+                <h3>Importera</h3>
+                <input type="file" id="fileInput" name="filename">
+            </details>
+        </article>
+
+
+        <article>
+            <h2>Kurser</h2>
+            <div id="course_display">
+                Inga kurser tillagda...
+
+            </div>
+        </article>
+
+        <footer>v0.1.0</footer>
+    </main>
+
+
+    <script src="main.js" async defer></script>
+</body>
+
+</html>

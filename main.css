@@ -1,0 +1,20 @@
+.sm {
+    max-width: 640px;
+}
+
+.md {
+    max-width: 768px;
+}
+
+body {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* body {
+    background-color: #111827;
+} */
+
+#term {
+    max-width: 100px;
+}
