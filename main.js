@@ -75,7 +75,7 @@ function displaySummary() {
 
   for (let i = 0; i < courses.length; i++) {
     const course = courses[i];
-    
+
   }
 
   display_div = document.getElementById("summary_block");
@@ -87,31 +87,31 @@ function displaySummary() {
 
 // ########### SECTIONS ###########
 function appendSection() {
-  display_div = document.getElementById("sections");
+  const display_div = document.querySelector("#sections");
+  const html = (`
+    <details class="section_block">
+    <summary>Moment</summary>
+    <div>
+        <label for="section_name">Benämning</label>
+        <input id="section_name" class="section_name" type="text" placeholder="Ex: tenta, labb, projekt..">
 
-  display_div.innerHTML += (`
-    
-  <details class="section_block">
-  <summary>Moment</summary>
-  <div>
-      <label for="section_name">Benämning</label>
-      <input id="section_name" class="section_name" type="text" placeholder="Ex: tenta, labb, projekt..">
+        <label for="section_points">Poäng</label>
+        <input id="section_points" class="section_points" type="number">
+        
+        <label for="section_term">Status</label>
+        <select name="section_term" class="section_term">
+            <option value="-1">Ej avklarad</option>
+            <option value="1">Avklarad år 1</option>
+            <option value="2">Avklarad år 2</option>
+            <option value="3">Avklarad år 3</option>
+            <option value="4">Avklarad år 4</option>
+            <option value="5">Avklarad år 5</option>
+        </select>
+    </div>
+    </details>
+`);
 
-      <label for="section_points">Poäng</label>
-      <input id="section_points" class="section_points" type="number">
-      
-      <label for="section_term">Status</label>
-      <select name="section_term" class="section_term">
-          <option value="-1">Ej avklarad</option>
-          <option value="1">Avklarad år 1</option>
-          <option value="2">Avklarad år 2</option>
-          <option value="3">Avklarad år 3</option>
-          <option value="4">Avklarad år 4</option>
-          <option value="5">Avklarad år 5</option>
-      </select>
-  </div>
-</details>
-  `)
+  display_div.insertAdjacentHTML("beforeend", html); // adds html before end of div
 }
 
 function addSections() {
