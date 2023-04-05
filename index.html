@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Poänguträknare</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="pico-master/css/pico.min.css">
@@ -15,15 +15,6 @@
 <body class="md">
     <main class="container">
         <h1>Poänguträknare</h1>
-        <article>
-            <label for="title">Kursbenämning</label>
-            <input id="title" type="text">
-
-            <label for="title">Termin</label>
-            <input id="term" type="number" value="1">
-
-            <button class="" id="add_course" onclick="addCourse()">Lägg till</button>
-        </article>
 
         <article>
             <details>
@@ -35,13 +26,63 @@
             </details>
         </article>
 
+        <article>
+            <!-- Course -->
+            <h3>Kurs</h3>
+            <label for="title">Kursbenämning</label>
+            <input id="title" type="text">
+
+            <label for="course_points">Poäng</label>
+            <input id="course_points" type="number" value=7.5>
+
+            <label for="term">Läsår</label>
+            <input id="term" type="number" value="1">
+
+            <!-- Sections -->
+            <div id="sections">
+                <h3>Kursmoment</h3>
+                <details class="section_block">
+                    <summary>Moment</summary>
+                    <div>
+                        <label for="section_name">Benämning</label>
+                        <input id="section_name" class="section_name" type="text"
+                            placeholder="Ex: tenta, labb, projekt..">
+
+                        <label for="section_points">Poäng</label>
+                        <input id="section_points" class="section_points" type="number">
+
+                        <label for="section_term">Status</label>
+                        <select name="section_term" class="section_term">
+                            <option value="-1">Ej avklarad</option>
+                            <option value="1">Avklarad år 1</option>
+                            <option value="2">Avklarad år 2</option>
+                            <option value="3">Avklarad år 3</option>
+                            <option value="4">Avklarad år 4</option>
+                            <option value="5">Avklarad år 5</option>
+                        </select>
+                    </div>
+                </details>
+            </div>
+            <button class="btn_small" onclick="appendSection()">+</button>
+
+            <button class="" id="add_course" onclick="addCourse()">Lägg till kurs</button>
+        </article>
+
+        <article>
+            <h2>Sammanfattning</h2>
+            <div id="summary_block">
+
+            </div>
+
+        </article>
 
         <article>
             <h2>Kurser</h2>
             <div id="course_display">
-                Inga kurser tillagda...
-
+                <!-- courses are inserted here -->
             </div>
+            <button class="btn_small" id="remove_course" onclick="removeCourse()">-</button>
+
         </article>
 
         <footer>v0.1.0</footer>

@@ -15,6 +15,17 @@ body {
     background-color: #111827;
 } */
 
-#term {
+#term, #section_points, #course_points {
     max-width: 100px;
+}
+
+.align-r {
+    text-align: right;
+    margin-right: 50px;
+}
+
+.btn_small {
+    max-width: 100px;
+    margin-left: auto;
+    margin-right: auto;
 }
