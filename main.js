@@ -71,18 +71,65 @@ function calcTermCompletion(course, term_nr) {
   return sum;
 }
 
-function displaySummary() {
+// calculates total finished points for the selected term
+function calcTotalTermCompletion(term_nr) {
+  nr_of_terms = getNrOfTerms();
+  term_total_points = 0
 
+  // for every course
+  for (let i = 0; i < courses.length; i++) {
+
+    const course = courses[i];
+    term_total_points += calcTermCompletion(course, term_nr);
+  }
+
+  return term_total_points;
+}
+
+function getNrOfTerms() {
+  nr_of_terms = 0;
+
+  // for every course
   for (let i = 0; i < courses.length; i++) {
     const course = courses[i];
 
+    // console.log("course " + course)
+
+    // for every section
+    for (let i = 0; i < course.sections.length; i++) {
+      const section = course.sections[i];
+      // console.log("section.finish_term " + section.finish_term)
+      if (section.finish_term > 0) {
+        nr_of_terms = section.finish_term;
+      }
+    }
   }
 
-  display_div = document.getElementById("summary_block");
-  display_div.innerHTML = (`
-  <h3>avklarade poäng: </h3>
+  return nr_of_terms;
+}
 
-  `);
+
+function displaySummary() {
+
+  nr_of_terms = getNrOfTerms();
+  console.log("nr " + nr_of_terms);
+  html = "";
+  
+  // for every term
+  for (let i = 0; i < nr_of_terms; i++) {
+
+    term_nr = i + 1;
+    const display_div = document.getElementById("summary_block");
+    html += (`
+      <section>
+        <h4>HP år ${term_nr}</h4>
+        <p>Avklarat: ${calcTotalTermCompletion(term_nr)} HP</p>
+        <p>Kvar till CSN: ${CSN_GOAL - calcTotalTermCompletion(term_nr)} HP</p>
+      </section>
+    `);
+    console.log("debug: " + html)
+    display_div.innerHTML = html;
+  }
 }
 
 // ########### SECTIONS ###########
@@ -159,6 +206,8 @@ function updateUI() {
     `)
     }
   }
+
+  displaySummary();
 
   //update button
   add_btn = document.getElementById("remove_course");
