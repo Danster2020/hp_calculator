@@ -22,7 +22,7 @@ class Section {
 
 // ########### Course ###########
 function addCourse() {
-  c_id = courses.length
+  c_id = createID();
   c_title = document.getElementById("title").value;
   c_term = document.getElementById("term").value;
   c_sections = addSections();
@@ -33,14 +33,37 @@ function addCourse() {
   updateUI();
 }
 
-function removeCourse() {
-
-  add_btn = document.getElementById("remove_course");
-
-  if (courses.length > 0) {
-    courses.pop();
-    updateUI();
+function createID() {
+  id = 0;
+  for (let i = 0; i < courses.length; i++) {
+    const course = courses[i];
+    
+    // if id exist or is greater: become it and add 1.
+    if (course.id >= id) {
+      id = course.id + 1;
+    }
   }
+  return id;
+}
+
+function popCourseAtIndex(id) {
+
+  for (let i = 0; i < courses.length; i++) {
+    var course = courses[i];
+    
+    // console.log("course id: " + course.id + " target id: " + id)
+
+    if (course.id == id) {
+      removed_element = courses.splice(i, 1);
+      console.log("removed id: " + removed_element[0].id)
+      return;
+    }
+  }
+}
+
+function removeCourse(id) {
+  popCourseAtIndex(id)
+  updateUI();
 }
 
 function calcCourseCompletion(course) {
@@ -112,9 +135,9 @@ function getNrOfTerms() {
 function displaySummary() {
 
   nr_of_terms = getNrOfTerms();
-  console.log("nr " + nr_of_terms);
+  // console.log("nr " + nr_of_terms);
   html = "";
-  
+
   // for every term
   for (let i = 0; i < nr_of_terms; i++) {
 
@@ -195,12 +218,14 @@ function updateUI() {
     
     <details>
       <summary>${element.title} <br><br>
-      ${element.finished_points} av ${element.total_points} HP</summary>
+      ${element.finished_points} av ${element.total_points} HP
+      </summary>
         <p>
           Titel: ${element.title} <br>
           Termin: ${element.term} <br>
           Avklarade poäng: ${element.finished_points}
         </p>
+        <button class="btn_medium btn_red outline" id="remove_course" onclick="removeCourse(${element.id})">Radera</button>
     </details>
     
     `)
@@ -210,13 +235,13 @@ function updateUI() {
   displaySummary();
 
   //update button
-  add_btn = document.getElementById("remove_course");
+  // add_btn = document.getElementById("remove_course");
 
-  if (courses.length > 0) {
-    add_btn.style.display = "block";
-  } else {
-    add_btn.style.display = "none";
-  }
+  // if (courses.length > 0) {
+  //   add_btn.style.display = "block";
+  // } else {
+  //   add_btn.style.display = "none";
+  // }
 }
 
 function exportToJson() {
