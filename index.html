@@ -41,29 +41,9 @@
             <!-- Sections -->
             <div id="sections">
                 <h3>Kursmoment</h3>
-                <details class="section_block">
-                    <summary>Moment</summary>
-                    <div>
-                        <label for="section_name">Benämning</label>
-                        <input id="section_name" class="section_name" type="text"
-                            placeholder="Ex: tenta, labb, projekt..">
-
-                        <label for="section_points">Poäng</label>
-                        <input id="section_points" class="section_points" type="number">
-
-                        <label for="section_term">Status</label>
-                        <select name="section_term" class="section_term">
-                            <option value="-1">Ej avklarad</option>
-                            <option value="1">Avklarad år 1</option>
-                            <option value="2">Avklarad år 2</option>
-                            <option value="3">Avklarad år 3</option>
-                            <option value="4">Avklarad år 4</option>
-                            <option value="5">Avklarad år 5</option>
-                        </select>
-                    </div>
-                </details>
             </div>
             <button class="btn_small outline" onclick="appendSection()">+</button>
+            <button class="btn_small btn_red outline" onclick="decrementSection()">-</button>
 
             <button class="" id="add_course" onclick="addCourse()">Lägg till kurs</button>
         </article>

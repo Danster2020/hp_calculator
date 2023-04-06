@@ -26,8 +26,9 @@ body {
 
 .btn_small {
     max-width: 10%;
-    margin-left: auto;
-    margin-right: auto;
+    display: inline;
+    /* margin-left: auto;
+    margin-right: auto; */
 }
 
 .btn_medium {

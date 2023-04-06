@@ -1,5 +1,8 @@
+
 var courses = [];
 const CSN_GOAL = 45;
+
+nr_of_draft_sections = 0; // TODO fix better solution in future
 
 class Course {
   constructor(id, title, term, sections, total_points) {
@@ -13,7 +16,8 @@ class Course {
 }
 
 class Section {
-  constructor(title, points, finish_term) {
+  constructor(id, title, points, finish_term) {
+    this.id = id;
     this.title = title;
     this.points = parseFloat(points);
     this.finish_term = finish_term;
@@ -22,7 +26,7 @@ class Section {
 
 // ########### Course ###########
 function addCourse() {
-  c_id = createID();
+  c_id = createID(courses);
   c_title = document.getElementById("title").value;
   c_term = document.getElementById("term").value;
   c_sections = addSections();
@@ -33,14 +37,14 @@ function addCourse() {
   updateUI();
 }
 
-function createID() {
+function createID(array) {
   id = 0;
-  for (let i = 0; i < courses.length; i++) {
-    const course = courses[i];
+  for (let i = 0; i < array.length; i++) {
+    const obj = array[i];
     
     // if id exist or is greater: become it and add 1.
-    if (course.id >= id) {
-      id = course.id + 1;
+    if (obj.id >= id) {
+      id = obj.id + 1;
     }
   }
   return id;
@@ -157,10 +161,13 @@ function displaySummary() {
 
 // ########### SECTIONS ###########
 function appendSection() {
+
+  nr_of_draft_sections++;
+
   const display_div = document.querySelector("#sections");
   const html = (`
-    <details class="section_block">
-    <summary>Moment</summary>
+    <details id="section_id${nr_of_draft_sections - 1}" class="section_block">
+    <summary>Moment ${nr_of_draft_sections}</summary>
     <div>
         <label for="section_name">Benämning</label>
         <input id="section_name" class="section_name" type="text" placeholder="Ex: tenta, labb, projekt..">
@@ -184,6 +191,19 @@ function appendSection() {
   display_div.insertAdjacentHTML("beforeend", html); // adds html before end of div
 }
 
+function decrementSection() {
+
+  if (nr_of_draft_sections < 1) {
+    console.log("no section to delete");
+    return;
+  }
+
+  tag = document.getElementById("section_id" + (nr_of_draft_sections - 1));
+  console.log("tag: " + "section_id" + nr_of_draft_sections)
+  tag.remove();
+  nr_of_draft_sections--;
+}
+
 function addSections() {
   sections = [];
   section_query_name = document.querySelectorAll('#sections .section_name');
@@ -193,6 +213,7 @@ function addSections() {
   // for every section
   for (let i = 0; i < section_query_name.length; i++) {
     sections.push(new Section(
+      null,
       section_query_name[i].value,
       section_query_points[i].value,
       section_query_terms[i].value
@@ -234,14 +255,7 @@ function updateUI() {
 
   displaySummary();
 
-  //update button
-  // add_btn = document.getElementById("remove_course");
 
-  // if (courses.length > 0) {
-  //   add_btn.style.display = "block";
-  // } else {
-  //   add_btn.style.display = "none";
-  // }
 }
 
 function exportToJson() {
@@ -260,6 +274,7 @@ function download(content, fileName, contentType) {
 
 function init() {
   document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
+  appendSection();
   updateUI();
 }
 
@@ -279,5 +294,3 @@ function handleFileLoad(event) {
 init();
 
 
-// const sections = [new Section("tenta", 6), new Section("labb", 1.5)]
-// const course1 = new Course("diskret matte", 1, sections);
