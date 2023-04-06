@@ -141,12 +141,13 @@ function displaySummary() {
   nr_of_terms = getNrOfTerms();
   // console.log("nr " + nr_of_terms);
   html = "";
+  const display_div = document.getElementById("summary_block")
+  display_div.innerHTML = html;
 
   // for every term
   for (let i = 0; i < nr_of_terms; i++) {
 
     term_nr = i + 1;
-    const display_div = document.getElementById("summary_block");
     html += (`
       <section>
         <h4>HP år ${term_nr}</h4>
