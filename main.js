@@ -41,7 +41,7 @@ function createID(array) {
   id = 0;
   for (let i = 0; i < array.length; i++) {
     const obj = array[i];
-    
+
     // if id exist or is greater: become it and add 1.
     if (obj.id >= id) {
       id = obj.id + 1;
@@ -54,7 +54,7 @@ function popCourseAtIndex(id) {
 
   for (let i = 0; i < courses.length; i++) {
     var course = courses[i];
-    
+
     // console.log("course id: " + course.id + " target id: " + id)
 
     if (course.id == id) {
@@ -68,6 +68,87 @@ function popCourseAtIndex(id) {
 function removeCourse(id) {
   popCourseAtIndex(id)
   updateUI();
+}
+
+// returns the course obj
+function getCourse(id) {
+  for (let i = 0; i < courses.length; i++) {
+    const course = courses[i];
+
+    if (course.id == id) {
+      return course;
+    }
+  }
+  return null;
+}
+
+function updateFinishTerm(element_id, course_id, term_index) {
+  course = getCourse(course_id);
+  new_value = document.getElementById(element_id).value;
+  course.sections[term_index].finish_term = new_value;
+  console.log("New value: " + new_value);
+  course.finished_points = calcCourseCompletion(course); // need to update points
+  updateUI();
+}
+
+function displayCourses() {
+  var display_div = document.getElementById("course_display");
+  display_div.innerHTML = null;
+
+  if (courses.length == 0) {
+    display_div.innerHTML = "Inga kurser tillagda...";
+  } else {
+    // for every course
+    for (let index = 0; index < courses.length; index++) {
+      var course = courses[index];
+      sections_div = "";
+      // for every section in that course
+      for (let j = 0; j < course.sections.length; j++) {
+        const section = course.sections[j];
+
+
+        placeholder_text = `selected="selected"`;
+        saved_option = [];
+        if (section.finish_term == -1) {
+          saved_option[0] = placeholder_text;
+        } else {
+          saved_option[section.finish_term] = placeholder_text;
+        }
+
+        sections_div += (`
+        <h4>${section.title}</h4>
+        <p>Poäng: ${section.points} HP</p>
+        <label for="section_term">Status</label>
+        <select id="${course.id}:${j}" name="section_term" class="section_term" onchange="updateFinishTerm(this.id, ${course.id}, ${j})" value="${section.finish_term}">
+            <option ${saved_option[0]} value="-1">Ej avklarad</option>
+            <option ${saved_option[1]} value="1">Avklarad år 1</option>
+            <option ${saved_option[2]} value="2">Avklarad år 2</option>
+            <option ${saved_option[3]} value="3">Avklarad år 3</option>
+            <option ${saved_option[4]} value="4">Avklarad år 4</option>
+            <option ${saved_option[5]} value="5">Avklarad år 5</option>
+        </select>
+        `)
+      }
+
+      // display course
+      display_div.innerHTML += (`
+        <details>
+          <summary>${course.title} <br><br>
+          ${course.finished_points} av ${course.total_points} HP
+          </summary>
+            <p>
+              Titel: ${course.title} <br>
+              Termin: ${course.term} <br>
+              Avklarade poäng: ${course.finished_points}
+            </p>
+            <div>
+              ${sections_div}
+            </div>
+            <button class="btn_medium btn_red outline" id="remove_course" onclick="removeCourse(${course.id})">Radera</button>
+        </details>
+    `)
+    }
+  }
 }
 
 function calcCourseCompletion(course) {
@@ -125,8 +206,8 @@ function getNrOfTerms() {
     // for every section
     for (let i = 0; i < course.sections.length; i++) {
       const section = course.sections[i];
-      // console.log("section.finish_term " + section.finish_term)
-      if (section.finish_term > 0) {
+      console.log("section.finish_term " + section.finish_term)
+      if (section.finish_term > nr_of_terms) {
         nr_of_terms = section.finish_term;
       }
     }
@@ -139,7 +220,7 @@ function getNrOfTerms() {
 function displaySummary() {
 
   nr_of_terms = getNrOfTerms();
-  // console.log("nr " + nr_of_terms);
+  console.log("nr " + nr_of_terms);
   html = "";
   const display_div = document.getElementById("summary_block")
   display_div.innerHTML = html;
@@ -228,35 +309,8 @@ function addSections() {
 // ########### UI ###########
 function updateUI() {
 
-  var display_div = document.getElementById("course_display");
-  display_div.innerHTML = null;
-
-  if (courses.length == 0) {
-    display_div.innerHTML = "Inga kurser tillagda...";
-  } else {
-    for (let index = 0; index < courses.length; index++) {
-      var element = courses[index];
-      display_div.innerHTML += (`
-    
-    <details>
-      <summary>${element.title} <br><br>
-      ${element.finished_points} av ${element.total_points} HP
-      </summary>
-        <p>
-          Titel: ${element.title} <br>
-          Termin: ${element.term} <br>
-          Avklarade poäng: ${element.finished_points}
-        </p>
-        <button class="btn_medium btn_red outline" id="remove_course" onclick="removeCourse(${element.id})">Radera</button>
-    </details>
-    
-    `)
-    }
-  }
-
+  displayCourses();
   displaySummary();
-
-
 }
 
 function exportToJson() {
