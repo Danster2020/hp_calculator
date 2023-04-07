@@ -314,7 +314,7 @@ function updateUI() {
 }
 
 function exportToJson() {
-  const json_data = JSON.stringify(courses)
+  const json_data = JSON.stringify(courses, null, 2)
   console.log(json_data);
   download(json_data, 'HP-points.txt', 'text/plain');
 }
