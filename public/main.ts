@@ -146,7 +146,7 @@ function displayCourses() {
       // display course
       display_div.innerHTML += (`
         <details>
-          <summary>${course.title} <br><br>
+          <summary>${course.title} <br>
           ${course.finished_points} av ${course.total_points} HP
           </summary>
             <p>
@@ -282,7 +282,7 @@ function appendSection() {
   let html = (`
     <details id="section_id${nr_of_draft_sections - 1}" class="section_block">
     <summary>Moment ${nr_of_draft_sections}</summary>
-    <div>
+    <div class="details_body">
         <label for="section_name">Benämning</label>
         <input id="section_name" class="section_name" type="text" placeholder="Ex: tenta, labb, projekt..">
 

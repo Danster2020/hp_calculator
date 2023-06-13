@@ -19,4 +19,7 @@ module.exports = {
   buildOptions: {
     /* ... */
   },
+  // exclude: [
+  //   '/src/tsconfig.json',
+  // ],
 };

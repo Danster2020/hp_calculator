@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    article {
+        @apply flex flex-col rounded-md bg-slate-900 m-4 px-6 py-4;
+    }
+
+    summary {
+        @apply cursor-pointer border-b pt-4 pb-2 mb-2 text-slate-300 border-slate-800;
+    }
+    
+    .details_body {
+        @apply flex flex-col p-2 mb-4 border rounded-lg border-slate-800;
+    }
+
+    input {
+        @apply bg-slate-950 p-4 mb-4 rounded-md;
+    }
+
+    select {
+        @apply w-40 bg-slate-950 p-4 mb-4 rounded-md;
+    }
+
+    label {
+        @apply mb-2;
+    }
+
+    button {
+        @apply bg-blue-700 text-center align-middle p-4 mx-4 mb-4 rounded-md outline-none;
+    }
+
+    .btn_small {
+        @apply w-14 mx-0;
+    }
+
+    .btn_red {
+        @apply bg-red-900;
+    }
+
+    h1 {
+        @apply text-3xl font-bold;
+    }
+
+    h2 {
+        @apply mb-4 text-2xl font-bold;
+    }
+
+    h3 {
+        @apply mb-4 text-xl font-bold;
+    }
+
+    h4 {
+        @apply mb-4 text-lg font-bold;
+    }
+}

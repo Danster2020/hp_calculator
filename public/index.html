@@ -13,13 +13,17 @@
     <link href="global.css" rel="stylesheet">
 </head>
 
-<body class="md">
-    <main class="container">
-        <h1>Poänguträknare</h1>
+<body class="bg-slate-950">
 
-        <article>
+    <header class="p-4 bg-slate-900">
+        <h1 class="text-white">HP Kalkylator</h1>
+    </header>
+
+    <main class="mx-auto max-w-xl mt-10 p-10 text-blue-100">
+
+        <article class="">
             <details>
-                <summary>Importera/exportera</summary>
+                <summary class="">Importera/exportera</summary>
                 <h3>Exportera</h3>
                 <button onclick="exportToJson()">Exportera</button>
                 <h3>Importera</h3>
@@ -27,7 +31,7 @@
             </details>
         </article>
 
-        <article>
+        <article class="">
             <!-- Course -->
             <h3>Kurs</h3>
             <label for="title">Kursbenämning</label>
@@ -49,14 +53,14 @@
             <button class="" id="add_course" onclick="addCourse()">Lägg till kurs</button>
         </article>
 
-        <article>
+        <article class="">
             <h2>Sammanfattning</h2>
             <div id="summary_block">
 
             </div>
         </article>
 
-        <article>
+        <article class="">
             <h2>Kurser</h2>
             <div id="course_display">
                 <!-- courses are inserted here -->
