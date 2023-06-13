@@ -3,7 +3,10 @@ Made to calculate how many points you have from each school year and how many yo
 
 
 ## Typescript
-npm install --global yarn
- yarn add typescript
+`npm install --global yarn`
 
-`tsc -w`
+`yarn add typescript --dev`
+
+### Run dev
+
+`yarn tsc -w`

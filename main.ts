@@ -2,7 +2,7 @@
 var courses = [];
 const CSN_GOAL = 45;
 
-let nr_of_draft_sections = 0; // TODO fix better solution in future
+let nr_of_draft_sections = 0; // TODO fix better solution in future.
 
 class Course {
   id: number;
@@ -27,7 +27,7 @@ class Section {
   title: any;
   points: number;
   finish_term: any;
-  
+
   constructor(id, title, points, finish_term) {
     this.id = id;
     this.title = title;
@@ -38,25 +38,25 @@ class Section {
 
 // ########### Course ###########
 function addCourse() {
-  const c_id = createID(courses);
-  const c_title = (<HTMLInputElement>document.getElementById("title")).value;
-  const c_term = (<HTMLInputElement>document.getElementById("term")).value;
-  const c_sections = addSections();
-  const c_total_points = (<HTMLInputElement>document.getElementById("course_points")).value;
-  const new_course = new Course(c_id, c_title, c_term, c_sections, c_total_points);
+  let c_id = createID(courses);
+  let c_title = (<HTMLInputElement>document.getElementById("title")).value;
+  let c_term = (<HTMLInputElement>document.getElementById("term")).value;
+  let c_sections = addSections();
+  let c_total_points = (<HTMLInputElement>document.getElementById("course_points")).value;
+  let new_course = new Course(c_id, c_title, c_term, c_sections, c_total_points);
   courses.push(new_course);
   console.log(new_course);
   updateUI();
 }
 
 function createID(array) {
-  const id = 0;
+  let id = 0;
   for (let i = 0; i < array.length; i++) {
-    const obj = array[i];
+    let obj = array[i];
 
     // if id exist or is greater: become it and add 1.
     if (obj.id >= id) {
-      const id = obj.id + 1;
+      let id = obj.id + 1;
     }
   }
   return id;
@@ -70,7 +70,7 @@ function popCourseAtIndex(id) {
     // console.log("course id: " + course.id + " target id: " + id)
 
     if (course.id == id) {
-      const removed_element = courses.splice(i, 1);
+      let removed_element = courses.splice(i, 1);
       console.log("removed id: " + removed_element[0].id)
       return;
     }
@@ -85,7 +85,7 @@ function removeCourse(id) {
 // returns the course obj
 function getCourse(id) {
   for (let i = 0; i < courses.length; i++) {
-    const course = courses[i];
+    let course = courses[i];
 
     if (course.id == id) {
       return course;
@@ -95,8 +95,8 @@ function getCourse(id) {
 }
 
 function updateFinishTerm(element_id, course_id, term_index) {
-  const course = getCourse(course_id);
-  const new_value = (<HTMLInputElement>document.getElementById(element_id)).value;
+  let course = getCourse(course_id);
+  let new_value = (<HTMLInputElement>document.getElementById(element_id)).value;
   course.sections[term_index].finish_term = new_value;
   console.log("New value: " + new_value);
   course.finished_points = calcCourseCompletion(course); // need to update points
@@ -116,11 +116,11 @@ function displayCourses() {
       let sections_div = "";
       // for every section in that course
       for (let j = 0; j < course.sections.length; j++) {
-        const section = course.sections[j];
+        let section = course.sections[j];
 
 
-        const placeholder_text = `selected="selected"`;
-        const saved_option = [];
+        let placeholder_text = `selected="selected"`;
+        let saved_option = [];
         if (section.finish_term == -1) {
           saved_option[0] = placeholder_text;
         } else {
@@ -167,7 +167,7 @@ function calcCourseCompletion(course) {
   let sum = 0;
 
   for (let i = 0; i < course.sections.length; i++) {
-    const section = course.sections[i];
+    let section = course.sections[i];
 
     if (section.finish_term != -1) {
       sum += section.points;
@@ -180,7 +180,7 @@ function calcCourseCompletion(course) {
 function calcTermCompletion(course, term_nr) {
   let sum = 0;
   for (let i = 0; i < course.sections.length; i++) {
-    const section = course.sections[i];
+    let section = course.sections[i];
 
     // if section finished in the same term as term_nr
     if (section.finish_term == term_nr) {
@@ -193,34 +193,47 @@ function calcTermCompletion(course, term_nr) {
 
 // calculates total finished points for the selected term
 function calcTotalTermCompletion(term_nr) {
-  const nr_of_terms = getNrOfTerms();
+  let nr_of_terms = getNrOfTerms();
   let term_total_points = 0
 
   // for every course
   for (let i = 0; i < courses.length; i++) {
 
-    const course = courses[i];
+    let course = courses[i];
     term_total_points += calcTermCompletion(course, term_nr);
   }
 
   return term_total_points;
 }
 
+function calcTotalHpPoints() {
+  let nr_of_terms = getNrOfTerms();
+  let total_points = 0
+
+  // for every course
+  for (let term = 0; term < nr_of_terms + 1; term++) {
+    total_points += calcTotalTermCompletion(term);
+  }
+
+  console.log("Total HP points for " + nr_of_terms + " terms: " + total_points)
+  return total_points;
+}
+
 function getNrOfTerms() {
-  const nr_of_terms = 0;
+  let nr_of_terms = 0;
 
   // for every course
   for (let i = 0; i < courses.length; i++) {
-    const course = courses[i];
+    let course = courses[i];
 
     // console.log("course " + course)
 
     // for every section
     for (let i = 0; i < course.sections.length; i++) {
-      const section = course.sections[i];
+      let section = course.sections[i];
       console.log("section.finish_term " + section.finish_term)
       if (section.finish_term > nr_of_terms) {
-        const nr_of_terms = section.finish_term;
+        nr_of_terms = section.finish_term;
       }
     }
   }
@@ -231,16 +244,21 @@ function getNrOfTerms() {
 
 function displaySummary() {
 
-  const nr_of_terms = getNrOfTerms();
+  let nr_of_terms = getNrOfTerms();
   console.log("nr " + nr_of_terms);
   let html = "";
-  const display_div = document.getElementById("summary_block")
+  html += (`
+    <div>
+      <h4>HP totalt: ${calcTotalHpPoints()}</h4>
+    </div>
+  `);
+  let display_div = document.getElementById("summary_block")
   display_div.innerHTML = html;
 
   // for every term
   for (let i = 0; i < nr_of_terms; i++) {
 
-    const term_nr = i + 1;
+    let term_nr = i + 1;
     html += (`
       <section>
         <h4>HP år ${term_nr}</h4>
@@ -258,8 +276,8 @@ function appendSection() {
 
   nr_of_draft_sections++;
 
-  const display_div = document.querySelector("#sections");
-  const html = (`
+  let display_div = document.querySelector("#sections");
+  let html = (`
     <details id="section_id${nr_of_draft_sections - 1}" class="section_block">
     <summary>Moment ${nr_of_draft_sections}</summary>
     <div>
@@ -292,17 +310,17 @@ function decrementSection() {
     return;
   }
 
-  const tag = document.getElementById("section_id" + (nr_of_draft_sections - 1));
+  let tag = document.getElementById("section_id" + (nr_of_draft_sections - 1));
   console.log("tag: " + "section_id" + nr_of_draft_sections)
   tag.remove();
   nr_of_draft_sections--;
 }
 
 function addSections() {
-  const sections = [];
-  const section_query_name = document.querySelectorAll('#sections .section_name');
-  const section_query_points = document.querySelectorAll('#sections .section_points');
-  const section_query_terms = document.querySelectorAll('#sections .section_term');
+  let sections = [];
+  let section_query_name = document.querySelectorAll('#sections .section_name');
+  let section_query_points = document.querySelectorAll('#sections .section_points');
+  let section_query_terms = document.querySelectorAll('#sections .section_term');
 
   // for every section
   for (let i = 0; i < section_query_name.length; i++) {
@@ -326,7 +344,7 @@ function updateUI() {
 }
 
 function exportToJson() {
-  const json_data = JSON.stringify(courses, null, 2)
+  let json_data = JSON.stringify(courses, null, 2)
   console.log(json_data);
   download(json_data, 'HP-points.txt', 'text/plain');
 }
@@ -346,7 +364,7 @@ function init() {
 }
 
 function handleFileSelect(event) {
-  const reader = new FileReader()
+  let reader = new FileReader()
   reader.onload = handleFileLoad;
   reader.readAsText(event.target.files[0])
 }
