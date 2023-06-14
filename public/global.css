@@ -4,11 +4,11 @@
 
 @layer components {
     article {
-        @apply flex flex-col rounded-md bg-slate-900 m-4 px-6 py-4;
+        @apply flex flex-col rounded-md bg-dark_surf shadow-2xl m-4 px-6 py-4;
     }
 
     summary {
-        @apply cursor-pointer border-b pt-4 pb-2 mb-2 text-slate-300 border-slate-800;
+        @apply flex cursor-pointer border-b pt-4 pb-2 mb-2 text-slate-300 border-slate-800;
     }
     
     .details_body {
@@ -16,11 +16,11 @@
     }
 
     input {
-        @apply bg-slate-950 p-4 mb-4 rounded-md;
+        @apply bg-dark_back border-gray-800 border p-4 mb-4 rounded-md;
     }
 
     select {
-        @apply w-40 bg-slate-950 p-4 mb-4 rounded-md;
+        @apply w-40 bg-dark_back p-4 mb-4 rounded-md;
     }
 
     label {
@@ -55,3 +55,39 @@
         @apply mb-4 text-lg font-bold;
     }
 }
+
+details > summary {
+    list-style-type: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+details > summary::after {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: '\f054';
+
+    margin-left: auto;
+}
+
+details[open] > summary::after {
+    content: '\f054';
+    animation: rotation 0.3s forwards;
+
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(90deg);
+    }
+  }
