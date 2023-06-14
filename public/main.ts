@@ -1,4 +1,4 @@
-let test = 5;
+import { send_notification } from "./notification";
 
 var courses = [];
 const CSN_GOAL = 45;
@@ -48,6 +48,7 @@ function addCourse() {
   courses.push(new_course);
   console.log(new_course);
   updateUI();
+  send_notification("kurs tillaggd.")
 }
 
 function createID(array) {

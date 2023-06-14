@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 @layer components {
+
+    .toast_head {
+        @apply fixed right-0;
+    }
+
+    .toast_body {
+        @apply relative m-4 p-4 rounded-md bg-dark_surf border border-slate-800 border-l-8 border-l-green-500 text-white;
+    }
+
     article {
         @apply flex flex-col rounded-md bg-dark_surf shadow-2xl m-4 px-6 py-4;
     }

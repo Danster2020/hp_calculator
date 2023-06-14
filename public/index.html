@@ -11,9 +11,14 @@
 
     <link href="global.css" rel="stylesheet">
     <link href="./icons/all.css" rel="stylesheet">
+
 </head>
 
 <body class="bg-dark_back">
+
+    <div id="toast" class="toast_head">
+
+    </div>
 
     <header class="p-4 bg-dark_surf">
         <h1 class="text-white">HP Kalkylator</h1>
@@ -48,7 +53,8 @@
                 <h3>Kursmoment</h3>
             </div>
             <button class="btn_small outline" onclick="appendSection()"><i class="fa-solid fa-plus"></i></button>
-            <button class="btn_small btn_red outline" onclick="decrementSection()"><i class="fa-solid fa-trash"></i></button>
+            <button class="btn_small btn_red outline" onclick="decrementSection()"><i
+                    class="fa-solid fa-trash"></i></button>
 
             <button class="" id="add_course" onclick="addCourse()">Lägg till kurs</button>
         </article>
@@ -71,7 +77,6 @@
 
         <footer>v0.1.0</footer>
     </main>
-
 
     <script src="main.js" async defer></script>
 </body>
