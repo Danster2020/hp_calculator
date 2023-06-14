@@ -30,7 +30,7 @@
             <details>
                 <summary class="">Importera/exportera</summary>
                 <h3>Exportera</h3>
-                <button onclick="exportToJson()">Exportera</button>
+                <button id="export_btn">Exportera</button>
                 <h3>Importera</h3>
                 <input type="file" id="fileInput" name="filename">
             </details>
@@ -52,11 +52,11 @@
             <div id="sections">
                 <h3>Kursmoment</h3>
             </div>
-            <button class="btn_small outline" onclick="appendSection()"><i class="fa-solid fa-plus"></i></button>
-            <button class="btn_small btn_red outline" onclick="decrementSection()"><i
+            <button id="append_section_btn" class="btn_small outline"><i class="fa-solid fa-plus"></i></button>
+            <button id="decrement_section_btn" class="btn_small btn_red outline"><i
                     class="fa-solid fa-trash"></i></button>
 
-            <button class="" id="add_course" onclick="addCourse()">Lägg till kurs</button>
+            <button class="" id="add_course">Lägg till kurs</button>
         </article>
 
         <article class="">
@@ -78,7 +78,7 @@
         <footer>v0.1.0</footer>
     </main>
 
-    <script src="main.js" async defer></script>
+    <script src="main.js" type="module" async defer></script>
 </body>
 
 </html>

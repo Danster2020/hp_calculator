@@ -37,6 +37,24 @@ class Section {
   }
 }
 
+// ########### Event Listeners ###########
+document.getElementById("add_course").addEventListener("click", function () {
+  addCourse();
+});
+
+document.getElementById("export_btn").addEventListener("click", function () {
+  exportToJson();
+});
+
+document.getElementById("append_section_btn").addEventListener("click", function () {
+  appendSection();
+});
+
+document.getElementById("decrement_section_btn").addEventListener("click", function () {
+  decrementSection();
+});
+
+
 // ########### Course ###########
 function addCourse() {
   let c_id = createID(courses);
@@ -48,7 +66,7 @@ function addCourse() {
   courses.push(new_course);
   console.log(new_course);
   updateUI();
-  send_notification("kurs tillaggd.")
+  send_notification("kurs tillagd.")
 }
 
 function createID(array) {
@@ -78,6 +96,13 @@ function popCourseAtIndex(id) {
     }
   }
 }
+
+
+document.getElementById("course_display").addEventListener("click", function (e) {
+  if (e.target && (<HTMLButtonElement>e.target).nodeName == "BUTTON") {
+    removeCourse(extractID((<HTMLButtonElement>e.target).id))
+  }
+});
 
 function removeCourse(id) {
   popCourseAtIndex(id)
@@ -158,11 +183,16 @@ function displayCourses() {
             <div>
               ${sections_div}
             </div>
-            <button class="btn_medium btn_red outline" id="remove_course" onclick="removeCourse(${course.id})">Radera</button>
+            <button class="btn_medium btn_red outline" id="courseID#${course.id}" onclick="">Radera</button>
         </details>
     `)
     }
   }
+}
+
+function extractID(text: string) {
+  let id = text.replace(/[^0-9]/g, "");
+  return id
 }
 
 function calcCourseCompletion(course) {

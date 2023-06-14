@@ -19,7 +19,7 @@
     summary {
         @apply flex cursor-pointer border-b pt-4 pb-2 mb-2 text-slate-300 border-slate-800;
     }
-    
+
     .details_body {
         @apply flex flex-col p-2 mb-4 border rounded-lg border-slate-800;
     }
@@ -65,15 +65,15 @@
     }
 }
 
-details > summary {
+details>summary {
     list-style-type: none;
 }
 
-details > summary::-webkit-details-marker {
+details>summary::-webkit-details-marker {
     display: none;
 }
 
-details > summary::after {
+details>summary::after {
     display: inline-block;
     font-style: normal;
     font-variant: normal;
@@ -86,7 +86,14 @@ details > summary::after {
     margin-left: auto;
 }
 
-details[open] > summary::after {
+details[open]>summary::after {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: '\f054';
     animation: rotation 0.3s forwards;
 
@@ -94,9 +101,38 @@ details[open] > summary::after {
 
 @keyframes rotation {
     from {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
+
     to {
-      transform: rotate(90deg);
+        transform: rotate(90deg);
     }
-  }
+}
+
+.toast_body {
+    animation: slideIn 0.5s;
+}
+
+.slide_out {
+    animation: slideOut forwards 0.5s;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(150%);
+    }
+}

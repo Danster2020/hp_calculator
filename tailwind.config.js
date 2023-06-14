@@ -6,12 +6,14 @@ module.exports = {
     extend: {
       colors: {
         'dark_back': '#0F171D',
-        'dark_surf': '#131D25',
+        'dark_surf': '#141E26',
       },
     },
   },
   plugins: [],
   safelist: [
     'details_body',
+    'toast_head',
+    'toast_body'
   ]
 }
