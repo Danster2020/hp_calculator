@@ -9,7 +9,15 @@
     }
 
     .toast_body {
-        @apply relative m-4 p-4 rounded-md bg-dark_surf border border-slate-800 border-l-8 border-l-green-500 text-white;
+        @apply relative m-4 p-4 rounded-md bg-dark_surf border border-slate-800 border-l-8 border-l-blue-500 text-white;
+    }
+
+    .toast_green {
+        @apply border-l-8 border-l-green-500;
+    }
+    
+    .toast_red {
+        @apply border-l-8 border-l-red-900;
     }
 
     article {

@@ -54,19 +54,57 @@ document.getElementById("decrement_section_btn").addEventListener("click", funct
   decrementSection();
 });
 
+document.getElementById("course_display").addEventListener("click", function (e) {
+  if (e.target && (<HTMLButtonElement>e.target).nodeName == "BUTTON") {
+    removeCourse(extractID((<HTMLButtonElement>e.target).id))
+  }
+});
+
+document.getElementById("course_display").addEventListener("change", function (e) {
+  if (e.target && (<HTMLSelectElement>e.target).nodeName == "SELECT") {
+
+    const element_id = (<HTMLSelectElement>e.target).id
+
+    const beforeColonMatch = element_id.match(/^(\d+):/)[1];
+    const afterColonMatch = element_id.match(/:(\d+)$/)[1];
+
+    console.log("beforeColonMatch " + beforeColonMatch);
+    console.log("afterColonMatch" + afterColonMatch);
+    
+    
+
+    updateFinishTerm(element_id, beforeColonMatch, afterColonMatch);
+  }
+});
 
 // ########### Course ###########
 function addCourse() {
-  let c_id = createID(courses);
+  let c_id = createID(courses); // FIXME smth wrong id only 0 every time
   let c_title = (<HTMLInputElement>document.getElementById("title")).value;
   let c_term = (<HTMLInputElement>document.getElementById("term")).value;
   let c_sections = addSections();
   let c_total_points = (<HTMLInputElement>document.getElementById("course_points")).value;
   let new_course = new Course(c_id, c_title, c_term, c_sections, c_total_points);
+
+  if (c_title == "") {
+    send_notification("Kursbenämning är tom!", "r")
+    return;
+  }
+
+  if (c_total_points == "0" || c_total_points == "") {
+    send_notification("Kurspoäng får inte vara 0 eller tom!", "r")
+    return;
+  }
+
+  if (c_term == "0" || c_term == "") {
+    send_notification("Läsår får inte vara 0 eller tom!", "r")
+    return;
+  }
+
   courses.push(new_course);
   console.log(new_course);
   updateUI();
-  send_notification("kurs tillagd.")
+  send_notification("kurs tillagd.", "b")
 }
 
 function createID(array) {
@@ -76,7 +114,7 @@ function createID(array) {
 
     // if id exist or is greater: become it and add 1.
     if (obj.id >= id) {
-      let id = obj.id + 1;
+      id = obj.id + 1;
     }
   }
   return id;
@@ -98,11 +136,7 @@ function popCourseAtIndex(id) {
 }
 
 
-document.getElementById("course_display").addEventListener("click", function (e) {
-  if (e.target && (<HTMLButtonElement>e.target).nodeName == "BUTTON") {
-    removeCourse(extractID((<HTMLButtonElement>e.target).id))
-  }
-});
+
 
 function removeCourse(id) {
   popCourseAtIndex(id)
@@ -158,7 +192,7 @@ function displayCourses() {
         <h4>${section.title}</h4>
         <p>Poäng: ${section.points} HP</p>
         <label for="section_term">Status</label>
-        <select id="${course.id}:${j}" name="section_term" class="section_term" onchange="updateFinishTerm(this.id, ${course.id}, ${j})" value="${section.finish_term}">
+        <select id="${course.id}:${j}" name="section_term" class="section_term" value="${section.finish_term}">
             <option ${saved_option[0]} value="-1">Ej avklarad</option>
             <option ${saved_option[1]} value="1">Avklarad år 1</option>
             <option ${saved_option[2]} value="2">Avklarad år 2</option>

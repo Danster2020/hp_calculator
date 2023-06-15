@@ -14,6 +14,8 @@ module.exports = {
   safelist: [
     'details_body',
     'toast_head',
-    'toast_body'
+    'toast_body',
+    'toast_green',
+    'toast_red',
   ]
 }

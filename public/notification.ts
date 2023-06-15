@@ -1,9 +1,18 @@
 
-export function send_notification(text: string) {
+export function send_notification(text: string, type: string) {
+
+    let color = "";
+
+    if (type == "r") {
+        color = "toast_red";
+    }
+    else if (type == "g") {
+        color = "toast_green";
+    }
 
     let html = (`
     
-        <div id="toast_child" class="toast_body">
+        <div id="toast_child" class="toast_body ${color}">
             ${text}
         </div>
         
