@@ -8,6 +8,10 @@ Made to calculate how many points you have from each school year and how many yo
 
 `yarn start`
 
+## Testing
+
+`yarn run cypress open`
+
 ## Links
 
 https://www.snowpack.dev/guides/tailwind-css/
