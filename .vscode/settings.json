@@ -1,8 +1,0 @@
-{
-    // "files.readonlyInclude": {
-    //     "*.js": true
-    // },
-    // "files.readonlyExclude": {
-    //     "tailwind.config.js": true
-    // }
-}
