@@ -11,7 +11,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+  ],
   safelist: [
     'details_body',
     'toast_head',
