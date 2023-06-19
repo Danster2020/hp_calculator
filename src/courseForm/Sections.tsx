@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// import { def_section } from "./CourseForm";
 
 
-class Section {
+export class Section {
     id: number;
     title: any;
     points: number;
@@ -16,28 +17,20 @@ class Section {
     }
 }
 
-function Sections() {
+const Sections = (props: { sections: Section[], handleDelete: any, handleNameChange: any }) => {
 
 
-    const sections: Section[] = []
-    const def_section = new Section(0, "moment 1", NaN, -1)
-    sections.push(def_section)
-
-    const [section_name, setName] = useState(def_section.title);
-
-    const handleDelete = (id: number) => {
-        return
-    }
-
+    // const [section_name, setName] = useState("MOMENT");
+    
 
     return (
         <>
-            {sections.map((item, index) => (
-                <details key={index} id="section_id${nr_of_draft_sections - 1}" className="section_block">
-                    <summary>{section_name}</summary>
+            {props.sections.map((item: Section, index: number) => (
+                <details key={index} id={`section_id#${index}`} className="section_block">
+                    <summary>{item.title}</summary>
                     <div className="details_body">
                         <label htmlFor="section_name">Benämning</label>
-                        <input onChange={(e) => setName(e.target.value)} id="section_name" className="section_name" type="text" placeholder="Ex: tenta, labb, projekt.." />
+                        <input onChange={(e) => props.handleNameChange(index, e.target.value)} id={`section_name_${index}`} className="section_name" type="text" placeholder="Ex: tenta, labb, projekt.." />
 
                         <label htmlFor="section_points">Poäng</label>
                         <input id="section_points" className="section_points" type="number" defaultValue={item.points} />
@@ -51,7 +44,7 @@ function Sections() {
                             <option value="4">Avklarad år 4</option>
                             <option value="5">Avklarad år 5</option>
                         </select>
-                        <button onClick={(e) => handleDelete(item.id)} className="btn btn_small btn_red outline"><FontAwesomeIcon icon="trash" /></button>
+                        <button onClick={() => props.handleDelete(item.id)} className="btn btn_small btn_red outline"><FontAwesomeIcon icon="trash" /></button>
 
                     </div>
                 </details>
