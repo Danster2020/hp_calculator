@@ -1,35 +1,102 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Sections, { Section } from './Sections';
 import { useState } from 'react'
+import { v4 as uuid } from 'uuid';
 
 
 // export let sections_array: Section[] = []
+let courses: Course[] = [];
+
+class Course {
+    id: string;
+    title: string;
+    term: number;
+    sections: Section[];
+    total_points: number;
+    finished_points: number;
+
+    constructor(id: string, title: string, term: any, sections: Section[], total_points: number, finished_points: number) {
+        this.id = id;
+        this.title = title;
+        this.term = term;
+        this.sections = sections;
+        this.total_points = total_points;
+        this.finished_points = finished_points;
+    }
+}
+
+
 
 const CourseForm = () => {
 
+    let empty_sections: Section[] = []
+    const [sections, setSections] = useState(empty_sections);
+
     const submitForm = (e: any) => {
         e.preventDefault()
-    
         const formData = new FormData(e.target)
         const payload = Object.fromEntries(formData)
-    
-        console.log(payload);
-    
+
+        const newCourse = new Course(
+            uuid(),
+            payload.title.toString(),
+            payload.term.toString(),
+            sections,
+            Number(payload.course_points),
+            calcCourseCompletedPoints(sections)
+        )
+        courses.push(newCourse)
+
+        // console.log(payload);
+        console.log(sections)
+        // console.log(courses)
+
     }
 
-    const [sections, setSections] = useState([new Section(0, "Moment1", 0, -1)]);
+    function calcCourseCompletedPoints(sectionsArray: Section[]) {
+        let completedPoints = 0
+        for (let i = 0; i < sectionsArray.length; i++) {
+            const section = sectionsArray[i];
+            if (section.finish_term !== "-1") {
+                completedPoints += section.points
+            }
+        }
+        return completedPoints
+    }
+
+    // function calcNrOfTerms(sectionsArray: Section[]) {
+    //     let nrOfTerms = 1
+    //     for (let i = 0; i < sectionsArray.length; i++) {
+    //         const section = sectionsArray[i];
+    //         if (condition) {
+
+    //         }
+    //     }
+    // }
+
+    const handlePropertyChange = (index: number, propertyName: string, newValue: any) => {
+        setSections((prevSections) => {
+            const updatedSections = [...prevSections];
+            updatedSections[index][propertyName] = newValue;
+            return updatedSections;
+        });
+    };
 
     const handleNameChange = (index: number, newName: string) => {
-        setSections((prevSections) => {
-          const updatedSections = [...prevSections];
-          updatedSections[index].title = newName;
-          return updatedSections;
-        });
-      };
+        handlePropertyChange(index, 'title', newName);
+    };
+
+    const handleTermChange = (index: number, newValue: string) => {
+        handlePropertyChange(index, 'finish_term', newValue);
+    };
+
+    const handlePointsChange = (index: number, newValue: number) => {
+        handlePropertyChange(index, 'points', Number(newValue));
+    };
 
     const handleAddSection = () => {
-        const newSection = new Section(sections.length, "Moment" + (sections.length + 1), 0, -1);
-          setSections([...sections, newSection]);
+        const newSection = new Section(sections.length, "Moment" + (sections.length + 1), 0, "-1");
+        setSections([...sections, newSection]);
     };
 
     const handleDelete = (id: number) => {
@@ -53,9 +120,16 @@ const CourseForm = () => {
 
                     <div id="sections">
                         <h3>Kursmoment</h3>
-                        {sections.length != 0 ? <Sections sections={sections} handleDelete={handleDelete} handleNameChange={handleNameChange} ></Sections> : <p className='pb-4'>Inga kursmoment tillagda.</p>}
+                        {sections.length !== 0 ?
+                        <Sections
+                            sections={sections}
+                            handleDelete={handleDelete}
+                            handleNameChange={handleNameChange}
+                            handleTermChange={handleTermChange} 
+                            handlePointsChange={handlePointsChange}
+                        ></Sections> : <p className='pb-4'>Inga kursmoment tillagda.</p>}
                     </div>
-                    <button onClick={handleAddSection} id="append_section_btn" className="btn btn_small outline"><FontAwesomeIcon icon="plus" /></button>
+                    <button onClick={handleAddSection} id="" type='button' className="btn btn_small outline"><FontAwesomeIcon icon="plus" /></button>
 
 
                     <button className="btn" id="add_course" type='submit'>Lägg till kurs</button>
