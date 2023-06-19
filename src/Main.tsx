@@ -1,7 +1,34 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CourseForm from './courseForm/CourseForm';
+import CoursesDisplay from './courseForm/CoursesDisplay';
+import { Course } from './data';
+import { useState } from 'react';
 
 function Main() {
+    const [courses, setCourses] = useState<Course[]>([]);
+
+    // const handlePropertyChange = (index: number, propertyName: string, newValue: any) => {
+    //     setCourses((prevCourses) => {
+    //         const updatedCourses = [...prevCourses];
+    //         updatedCourses[index].sections[index][propertyName] = newValue;
+    //         return updatedCourses;
+    //     });
+    // };
+
+    const handlePropertyChange = (courseIndex: number, SectionIndex: number, propertyName: string, newValue: any) => {
+        setCourses((prevCourses) => {
+            const updatedCourses = [...prevCourses];
+            updatedCourses[courseIndex].sections[SectionIndex][propertyName] = newValue;
+            console.log("prop changed");
+            console.log(courses);
+            return updatedCourses;
+        });
+    };
+
+    const handleTermChange = (courseIndex: number, SectionIndex: number, newValue: string) => {
+        handlePropertyChange(courseIndex, SectionIndex, 'finish_term', newValue);
+    };
+
     return <>
         <header className="p-4 bg-dark_surf">
             <h1 className="text-white">HP Kalkylator</h1>
@@ -19,7 +46,7 @@ function Main() {
                 </details>
             </article>
 
-            <CourseForm></CourseForm>
+            <CourseForm setCourses={setCourses}></CourseForm>
 
             <article className="">
                 <h2>Sammanfattning</h2>
@@ -31,7 +58,7 @@ function Main() {
             <article className="">
                 <h2>Kurser</h2>
                 <div id="course_display">
-                    {/* courses are inserted here */}
+                    <CoursesDisplay courses={courses}></CoursesDisplay>
                 </div>
             </article>
 

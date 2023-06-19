@@ -2,32 +2,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Sections, { Section } from './Sections';
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid';
+import { Course } from '../data';
 
 
 // export let sections_array: Section[] = []
-let courses: Course[] = [];
-
-class Course {
-    id: string;
-    title: string;
-    term: number;
-    sections: Section[];
-    total_points: number;
-    finished_points: number;
-
-    constructor(id: string, title: string, term: any, sections: Section[], total_points: number, finished_points: number) {
-        this.id = id;
-        this.title = title;
-        this.term = term;
-        this.sections = sections;
-        this.total_points = total_points;
-        this.finished_points = finished_points;
-    }
-}
+// let courses: Course[] = [];
 
 
 
-const CourseForm = () => {
+const CourseForm = (props: { setCourses: any}) => {
 
     let empty_sections: Section[] = []
     const [sections, setSections] = useState(empty_sections);
@@ -45,7 +28,7 @@ const CourseForm = () => {
             Number(payload.course_points),
             calcCourseCompletedPoints(sections)
         )
-        courses.push(newCourse)
+        props.setCourses((prevCourses: any) => [...prevCourses, newCourse]);
 
         // console.log(payload);
         console.log(sections)
@@ -110,7 +93,7 @@ const CourseForm = () => {
                 <form className='' onSubmit={submitForm}>
                     <h3>Kurs</h3>
                     <label htmlFor="title">Kursbenämning</label>
-                    <input id="title" name="title" type="text" />
+                    <input id="title" name="title" type="text" required />
 
                     <label htmlFor="course_points">Poäng</label>
                     <input id="course_points" name="course_points" type="number" defaultValue="7.5" />
