@@ -1,18 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 // import { def_section } from "./CourseForm";
+import { v4 as uuid } from 'uuid';
 
 
 export class Section {
-    id: number;
+    id: string;
     title: string;
     points: number;
     finish_term: string;
 
     [key: string]: any; // Index signature
 
-    constructor(id: number, title: string, points: number, finish_term: string) {
-        this.id = id;
+    constructor(title: string, points: number, finish_term: string) {
+        this.id = uuid();
         this.title = title;
         this.points = points;
         this.finish_term = finish_term;

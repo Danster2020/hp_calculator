@@ -18,7 +18,7 @@ export class Course {
         this.total_points = total_points;
     }
 
-    setSection(sectionID: number, updatedSection: Section) {
+    setSection(sectionID: string, updatedSection: Section) {
         for (let i = 0; i < this.sections.length; i++) {
             let section = this.sections[i];
             if (section.id === sectionID) {

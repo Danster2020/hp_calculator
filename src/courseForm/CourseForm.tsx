@@ -67,11 +67,11 @@ const CourseForm = (props: { setCourses: any}) => {
     };
 
     const handleAddSection = () => {
-        const newSection = new Section(sections.length, "Moment" + (sections.length + 1), 0, "-1");
+        const newSection = new Section("Moment" + (sections.length + 1), 0, "-1");
         setSections([...sections, newSection]);
     };
 
-    const handleDelete = (id: number) => {
+    const handleDelete = (id: string) => {
         const newSections = sections.filter(section => section.id !== id)
         setSections(newSections)
     }
