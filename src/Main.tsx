@@ -29,6 +29,11 @@ function Main() {
         handlePropertyChange(courseIndex, SectionIndex, 'finish_term', newValue);
     };
 
+    const handleCourseDelete = (courseID: string) => {
+        const updatedCourses = courses.filter(course => course.id !== courseID)
+        setCourses(updatedCourses)
+    };
+
     return <>
         <header className="p-4 bg-dark_surf">
             <h1 className="text-white">HP Kalkylator</h1>
@@ -58,7 +63,7 @@ function Main() {
             <article className="">
                 <h2>Kurser</h2>
                 <div id="course_display">
-                    <CoursesDisplay courses={courses} handleSectionTermChange={handleSectionTermChange}></CoursesDisplay>
+                    <CoursesDisplay courses={courses} handleSectionTermChange={handleSectionTermChange} handleCourseDelete={handleCourseDelete}></CoursesDisplay>
                 </div>
             </article>
 
