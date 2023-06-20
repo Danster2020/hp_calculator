@@ -2,38 +2,26 @@ import React, { useEffect, useState } from 'react'
 import { Course } from '../data'
 import { Section } from './Sections'
 
-const CoursesDisplay = (props: { courses: Course[] }) => {
+const CoursesDisplay = (props: { courses: Course[], handleSectionTermChange: any }) => {
 
     const [mycourses, setMyCourses] = useState<Course[]>(props.courses);
 
-    const handleTermChange = (courseIndex: number, sectionIndex: number, newValue: string) => {
-
-        const updatedCourses = props.courses;
-        updatedCourses[courseIndex].sections[sectionIndex].finish_term = newValue;
-        setMyCourses(updatedCourses)
-
-        // setMyCourses((prevCourses: Course[]) => {
-        //     const updatedCourses = [...prevCourses];
-        //     updatedCourses[courseIndex].sections[sectionIndex].finish_term = newValue;
-        //     return updatedCourses;
-        // });
-
-        console.log(props.courses);
-        
-    };
+    useEffect(() => {
+        setMyCourses(props.courses);
+    }, [props.courses]);
 
     return (
         <>
-            {props.courses.length == 0 && <div>Inga kurser tillagda.</div>}
-            {props.courses.map((course: Course, courseIndex: number) => (
+            {mycourses.length == 0 && <div>Inga kurser tillagda.</div>}
+            {mycourses.map((course: Course, courseIndex: number) => (
                 <details key={courseIndex}>
                     <summary>{course.title} <br />
-                        {course.finished_points} av {course.total_points} HP
+                        {course.calcCompletedPoints()} av {course.total_points} HP
                     </summary>
                     <p>
                         Titel: {course.title} <br />
                         Termin: {course.term} <br />
-                        Avklarade poäng: {course.finished_points}
+                        Avklarade poäng: {course.calcCompletedPoints()}
                     </p>
                     <div>
                         {course.sections.map((section: Section, sectionIndex: number) => (
@@ -41,7 +29,7 @@ const CoursesDisplay = (props: { courses: Course[] }) => {
                                 <h4>{section.title}</h4>
                                 <p>Poäng: {section.points} HP</p>
                                 <label htmlFor="section_term">Status</label>
-                                <select onChange={(e) => handleTermChange(courseIndex, sectionIndex, e.target.value)} name="section_term" className="section_term" defaultValue={section.finish_term}>
+                                <select onChange={(e) => props.handleSectionTermChange(courseIndex, sectionIndex, e.target.value)} name="section_term" className="section_term" defaultValue={section.finish_term}>
                                     <option value="-1">Ej avklarad</option>
                                     <option value="1">Avklarad år 1</option>
                                     <option value="2">Avklarad år 2</option>

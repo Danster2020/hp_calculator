@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CourseForm from './courseForm/CourseForm';
 import CoursesDisplay from './courseForm/CoursesDisplay';
 import { Course } from './data';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Main() {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -20,12 +20,12 @@ function Main() {
             const updatedCourses = [...prevCourses];
             updatedCourses[courseIndex].sections[SectionIndex][propertyName] = newValue;
             console.log("prop changed");
-            console.log(courses);
+            console.log("courses: " + courses);
             return updatedCourses;
         });
     };
 
-    const handleTermChange = (courseIndex: number, SectionIndex: number, newValue: string) => {
+    const handleSectionTermChange = (courseIndex: number, SectionIndex: number, newValue: string) => {
         handlePropertyChange(courseIndex, SectionIndex, 'finish_term', newValue);
     };
 
@@ -58,7 +58,7 @@ function Main() {
             <article className="">
                 <h2>Kurser</h2>
                 <div id="course_display">
-                    <CoursesDisplay courses={courses}></CoursesDisplay>
+                    <CoursesDisplay courses={courses} handleSectionTermChange={handleSectionTermChange}></CoursesDisplay>
                 </div>
             </article>
 

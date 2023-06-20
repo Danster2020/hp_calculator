@@ -26,26 +26,15 @@ const CourseForm = (props: { setCourses: any}) => {
             payload.term.toString(),
             sections,
             Number(payload.course_points),
-            calcCourseCompletedPoints(sections)
         )
         props.setCourses((prevCourses: any) => [...prevCourses, newCourse]);
 
-        // console.log(payload);
-        console.log(sections)
+        console.log(newCourse)
         // console.log(courses)
 
     }
 
-    function calcCourseCompletedPoints(sectionsArray: Section[]) {
-        let completedPoints = 0
-        for (let i = 0; i < sectionsArray.length; i++) {
-            const section = sectionsArray[i];
-            if (section.finish_term !== "-1") {
-                completedPoints += section.points
-            }
-        }
-        return completedPoints
-    }
+
 
     // function calcNrOfTerms(sectionsArray: Section[]) {
     //     let nrOfTerms = 1
