@@ -5,12 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { Course } from '../data';
 
 
-// export let sections_array: Section[] = []
-// let courses: Course[] = [];
-
-
-
-const CourseForm = (props: { setCourses: any}) => {
+const CourseForm = (props: { setCourses: any }) => {
 
     let empty_sections: Section[] = []
     const [sections, setSections] = useState(empty_sections);
@@ -20,31 +15,24 @@ const CourseForm = (props: { setCourses: any}) => {
         const formData = new FormData(e.target)
         const payload = Object.fromEntries(formData)
 
+        // gives new IDs after submission
+        let sectionsCopy: Section[] = []
+        for (let i = 0; i < sections.length; i++) {
+            const section = sections[i]
+            sectionsCopy[i] = new Section(section.title, section.points, section.finish_term)
+        }
+
         const newCourse = new Course(
             uuid(),
             payload.title.toString(),
             payload.term.toString(),
-            sections,
+            sectionsCopy,
             Number(payload.course_points),
         )
         props.setCourses((prevCourses: any) => [...prevCourses, newCourse]);
 
         console.log(newCourse)
-        // console.log(courses)
-
     }
-
-
-
-    // function calcNrOfTerms(sectionsArray: Section[]) {
-    //     let nrOfTerms = 1
-    //     for (let i = 0; i < sectionsArray.length; i++) {
-    //         const section = sectionsArray[i];
-    //         if (condition) {
-
-    //         }
-    //     }
-    // }
 
     const handlePropertyChange = (index: number, propertyName: string, newValue: any) => {
         setSections((prevSections) => {
@@ -93,13 +81,13 @@ const CourseForm = (props: { setCourses: any}) => {
                     <div id="sections">
                         <h3>Kursmoment</h3>
                         {sections.length !== 0 ?
-                        <Sections
-                            sections={sections}
-                            handleDelete={handleDelete}
-                            handleNameChange={handleNameChange}
-                            handleTermChange={handleTermChange} 
-                            handlePointsChange={handlePointsChange}
-                        ></Sections> : <p className='pb-4'>Inga kursmoment tillagda.</p>}
+                            <Sections
+                                sections={sections}
+                                handleDelete={handleDelete}
+                                handleNameChange={handleNameChange}
+                                handleTermChange={handleTermChange}
+                                handlePointsChange={handlePointsChange}
+                            ></Sections> : <p className='pb-4'>Inga kursmoment tillagda.</p>}
                     </div>
                     <button onClick={handleAddSection} id="" type='button' className="btn btn_small outline"><FontAwesomeIcon icon="plus" /></button>
 
