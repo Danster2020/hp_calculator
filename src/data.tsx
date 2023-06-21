@@ -1,6 +1,8 @@
 import React from 'react'
 import { Section } from './courseForm/Sections';
 
+export const CSN_GOAL = 45
+
 export class Course {
     id: string;
     title: string;
@@ -40,10 +42,21 @@ export class Course {
         return completedPoints
     }
 
+    calcCompletedTermPoints(term: number) {
+        let completedPoints = 0
+
+        this.sections.forEach(section => {
+            if (section.finish_term == term.toString()) {
+                completedPoints += section.points
+            }
+        });
+
+        return completedPoints
+    }
+
 
 }
 
-export let courses: Course[] = [];
 
 
 export default function data() {

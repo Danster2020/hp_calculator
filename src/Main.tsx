@@ -3,6 +3,7 @@ import CourseForm from './courseForm/CourseForm';
 import CoursesDisplay from './courseForm/CoursesDisplay';
 import { Course } from './data';
 import { useEffect, useState } from 'react';
+import CoursesSummary from './CoursesSummary';
 
 function Main() {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -56,7 +57,7 @@ function Main() {
             <article className="">
                 <h2>Sammanfattning</h2>
                 <div id="summary_block">
-
+                    <CoursesSummary courses={courses} ></CoursesSummary>
                 </div>
             </article>
 
