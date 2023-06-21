@@ -12,7 +12,7 @@ export class Course {
 
     [key: string]: any; // Index signature
 
-    constructor(id: string, title: string, term: any, sections: Section[], total_points: number) {
+    constructor(id: string, title: string, term: number, sections: Section[], total_points: number) {
         this.id = id;
         this.title = title;
         this.term = term;
@@ -32,13 +32,13 @@ export class Course {
     calcCompletedPoints() {
         let completedPoints = 0
 
-        // for each section in course sections
-        for (let i = 0; i < this.sections.length; i++) {
-            const section = this.sections[i];
-            if (section.finish_term !== "-1") {
+        this.sections.forEach(section => {
+            if (section.finish_term !== -1) {
                 completedPoints += section.points
             }
-        }
+        });
+
+
         return completedPoints
     }
 
@@ -46,7 +46,7 @@ export class Course {
         let completedPoints = 0
 
         this.sections.forEach(section => {
-            if (section.finish_term == term.toString()) {
+            if (section.finish_term == term) {
                 completedPoints += section.points
             }
         });

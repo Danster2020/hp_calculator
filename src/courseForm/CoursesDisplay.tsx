@@ -9,6 +9,8 @@ const CoursesDisplay = (props: { courses: Course[], handleSectionTermChange: any
 
     useEffect(() => {
         setMyCourses(props.courses);
+        console.log("props.courses changed");
+        
     }, [props.courses]);
 
     return (

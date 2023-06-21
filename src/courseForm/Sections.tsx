@@ -8,11 +8,11 @@ export class Section {
     id: string;
     title: string;
     points: number;
-    finish_term: string;
+    finish_term: number;
 
     [key: string]: any; // Index signature
 
-    constructor(title: string, points: number, finish_term: string) {
+    constructor(title: string, points: number, finish_term: number) {
         this.id = uuid();
         this.title = title;
         this.points = points;

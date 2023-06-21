@@ -25,7 +25,7 @@ const CourseForm = (props: { setCourses: any }) => {
         const newCourse = new Course(
             uuid(),
             payload.title.toString(),
-            payload.term.toString(),
+            Number(payload.term),
             sectionsCopy,
             Number(payload.course_points),
         )
@@ -46,8 +46,8 @@ const CourseForm = (props: { setCourses: any }) => {
         handlePropertyChange(index, 'title', newName);
     };
 
-    const handleTermChange = (index: number, newValue: string) => {
-        handlePropertyChange(index, 'finish_term', newValue);
+    const handleTermChange = (index: number, newValue: number) => {
+        handlePropertyChange(index, 'finish_term', Number(newValue));
     };
 
     const handlePointsChange = (index: number, newValue: number) => {
@@ -55,7 +55,7 @@ const CourseForm = (props: { setCourses: any }) => {
     };
 
     const handleAddSection = () => {
-        const newSection = new Section("Moment" + (sections.length + 1), 0, "-1");
+        const newSection = new Section("Moment" + (sections.length + 1), 5, -1);
         setSections([...sections, newSection]);
     };
 

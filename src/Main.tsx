@@ -4,6 +4,7 @@ import CoursesDisplay from './courseForm/CoursesDisplay';
 import { Course } from './data';
 import { useEffect, useState } from 'react';
 import CoursesSummary from './CoursesSummary';
+import { Header } from './Header';
 
 function Main() {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -20,14 +21,13 @@ function Main() {
         setCourses((prevCourses) => {
             const updatedCourses = [...prevCourses];
             updatedCourses[courseIndex].sections[SectionIndex][propertyName] = newValue;
-            console.log("prop changed");
-            console.log("courses: " + courses);
+            console.log(courses);
             return updatedCourses;
         });
     };
 
-    const handleSectionTermChange = (courseIndex: number, SectionIndex: number, newValue: string) => {
-        handlePropertyChange(courseIndex, SectionIndex, 'finish_term', newValue);
+    const handleSectionTermChange = (courseIndex: number, SectionIndex: number, newValue: number) => {
+        handlePropertyChange(courseIndex, SectionIndex, 'finish_term', Number(newValue));
     };
 
     const handleCourseDelete = (courseID: string) => {
@@ -36,9 +36,8 @@ function Main() {
     };
 
     return <>
-        <header className="p-4 bg-dark_surf">
-            <h1 className="text-white">HP Kalkylator</h1>
-        </header>
+
+        <Header></Header>
 
         <main className="mx-auto max-w-xl mt-10 px-2 py-5 text-blue-100">
 
@@ -56,7 +55,7 @@ function Main() {
 
             <article className="">
                 <h2>Sammanfattning</h2>
-                <div id="summary_block">
+                <div className="summary_block">
                     <CoursesSummary courses={courses} ></CoursesSummary>
                 </div>
             </article>
