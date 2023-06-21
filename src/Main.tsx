@@ -37,7 +37,7 @@ function Main() {
 
     return <>
 
-        <Header></Header>
+        <Header courses={courses}></Header>
 
         <main className="mx-auto max-w-xl mt-10 px-2 py-5 text-blue-100">
 

@@ -3,9 +3,9 @@ import logo from './logo.svg';
 import Main from './Main';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrash, faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPlus, faTrash)
+library.add(faPlus, faTrash, faFloppyDisk)
 
 function App() {
   return (

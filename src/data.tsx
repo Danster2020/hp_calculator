@@ -6,9 +6,9 @@ export const CSN_GOAL = 45
 export class Course {
     id: string;
     title: string;
+    total_points: number;
     term: number;
     sections: Section[];
-    total_points: number;
 
     [key: string]: any; // Index signature
 
