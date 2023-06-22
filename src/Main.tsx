@@ -6,6 +6,7 @@ import CoursesSummary from './CoursesSummary';
 import { Header } from './Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+
 function Main() {
     const [courses, setCourses] = useState<Course[]>([]);
 
