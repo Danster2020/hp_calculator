@@ -1,6 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-// import { def_section } from "./CourseForm";
 import { v4 as uuid } from 'uuid';
 
 
@@ -32,7 +30,10 @@ const Sections = (props: {
         <>
             {props.sections.map((item: Section, index: number) => (
                 <details key={index} id={`section_id#${index}`} className="section_block">
-                    <summary>{item.title}</summary>
+                    <summary>
+                        <span>{item.title}</span>
+                        <div className='summary_icon' ><FontAwesomeIcon icon="chevron-right" /></div>
+                    </summary>
                     <div className="details_body">
                         <label htmlFor="section_name">Benämning</label>
                         <input onChange={(e) => props.handleNameChange(index, e.target.value)}

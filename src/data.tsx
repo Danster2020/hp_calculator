@@ -1,4 +1,3 @@
-import React from 'react'
 import { Section } from './courseForm/Sections';
 
 export const CSN_GOAL = 45
@@ -33,7 +32,7 @@ export class Course {
         let completedPoints = 0
 
         this.sections.forEach(section => {
-            if (section.finish_term !== -1) {
+            if (Number(section.finish_term) !== -1) {
                 completedPoints += section.points
             }
         });
@@ -46,7 +45,7 @@ export class Course {
         let completedPoints = 0
 
         this.sections.forEach(section => {
-            if (section.finish_term == term) {
+            if (Number(section.finish_term) === term) {
                 completedPoints += section.points
             }
         });

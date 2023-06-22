@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { CSN_GOAL, Course } from './data'
 
+
 const CoursesSummary = (props: { courses: Course[] }) => {
 
-    // const [mycourses, setMyCourses] = useState<Course[]>(props.courses);
     const [totalNrOfTerms, setnrOfTerms] = useState<number>(0);
+
+    const [totalFinishedPoints, setTotalFinishedPoints] = useState<number>(0);
 
     useEffect(() => {
         handleNrOfTermsUpdate()
+        setTotalFinishedPoints(calcTotalFinishedPoints())
     }, [props.courses]);
 
     function calcTotalFinishedPoints() {
+        console.log("DEBUGGG");
+        console.log(props.courses);
+
         let totalFinishedPoints = 0
         props.courses.forEach(course => {
             totalFinishedPoints += course.calcCompletedPoints()
@@ -18,15 +24,6 @@ const CoursesSummary = (props: { courses: Course[] }) => {
 
         return totalFinishedPoints
     }
-
-    // function calcTotalPoints() {
-    //     let totalPoints = 0
-    //     props.courses.forEach(course => {
-    //         totalFinishedPoints += course.calcCompletedPoints()
-    //     });
-
-    //     return totalFinishedPoints
-    // }
 
     function calcTermFinishedPoints(term: number) {
         let totalFinishedPoints = 0
@@ -59,7 +56,7 @@ const CoursesSummary = (props: { courses: Course[] }) => {
     return (
         <>
             <div>
-                <h4>HP totalt: {calcTotalFinishedPoints()}</h4>
+                <h4>HP totalt: {totalFinishedPoints}</h4>
             </div>
 
             {props.courses.length === 0 ? <div>Inga kurser tillagda</div> :

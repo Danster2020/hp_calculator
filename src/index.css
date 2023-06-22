@@ -4,6 +4,10 @@
 
 @layer components {
 
+  body {
+    @apply bg-dark_back
+  }
+
   .toast_head {
     @apply fixed right-0;
   }
@@ -25,11 +29,11 @@
   }
 
   form {
-    @apply flex flex-col rounded-md bg-dark_surf m-4 sm:px-6 py-4;
+    @apply flex flex-col rounded-md bg-dark_surf m-4  py-4;
   }
 
   summary {
-    @apply flex cursor-pointer border-b pt-4 pb-2 mb-2 text-slate-300 border-slate-800;
+    @apply flex justify-between cursor-pointer border-b pt-4 pb-2 mb-2 text-slate-300 border-slate-800 hover:text-opacity-80;
   }
 
   .details_body {
@@ -52,8 +56,14 @@
     @apply mb-2;
   }
 
+  /* BUTTONS */
+
   .btn {
-    @apply bg-blue-700 hover:bg-blue-900 text-center align-middle p-4 mx-4 mb-4 rounded-md outline-none;
+    @apply bg-blue-700 hover:bg-blue-900 text-center align-middle p-4 rounded-md outline-none;
+  }
+
+  .btn_pill {
+    @apply border-2 text-cyan-300 border-cyan-800 bg-cyan-950  hover:bg-cyan-900 text-center align-middle px-3 py-2 rounded-3xl outline-none self-baseline;
   }
 
   .btn_small {
@@ -89,30 +99,9 @@ details>summary::-webkit-details-marker {
   display: none;
 }
 
-details>summary::after {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: '\f054';
+details[open]>summary .summary_icon {
 
-  margin-left: auto;
-}
-
-details[open]>summary::after {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: '\f054';
   animation: rotation 0.3s forwards;
-
 }
 
 @keyframes rotation {

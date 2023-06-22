@@ -10,17 +10,24 @@ const CoursesDisplay = (props: { courses: Course[], handleSectionTermChange: any
     useEffect(() => {
         setMyCourses(props.courses);
         console.log("props.courses changed");
-        
+
     }, [props.courses]);
 
     return (
         <>
-            {mycourses.length == 0 && <div>Inga kurser tillagda.</div>}
+            {mycourses.length === 0 && <div>Inga kurser tillagda.</div>}
             {mycourses.map((course: Course, courseIndex: number) => (
                 <details key={courseIndex}>
-                    <summary>{course.title} <br />
-                        {course.calcCompletedPoints()} av {course.total_points} HP
+
+                    <summary>
+                        <div>
+                            <span>{course.title}</span>
+                            <br />
+                            <span>{course.calcCompletedPoints()} av {course.total_points} HP</span>
+                        </div>
+                        <div className='summary_icon h-6 w-6 justify-center align-middle text-center' ><FontAwesomeIcon icon="chevron-right" className='block my-1 mx-auto'/></div>
                     </summary>
+
                     <div className='details_body'>
                         <p>
                             Titel: {course.title} <br />

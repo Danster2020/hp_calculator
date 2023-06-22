@@ -89,10 +89,10 @@ const CourseForm = (props: { setCourses: any }) => {
                                 handlePointsChange={handlePointsChange}
                             ></Sections> : <p className='pb-4'>Inga kursmoment tillagda.</p>}
                     </div>
-                    <button onClick={handleAddSection} id="" type='button' className="btn btn_small outline"><FontAwesomeIcon icon="plus" /></button>
+                    <button onClick={handleAddSection} type='button' className="btn_pill mb-4"><FontAwesomeIcon icon="plus" className='mr-1' />Nytt moment</button>
 
 
-                    <button className="btn" id="add_course" type='submit'>Lägg till kurs</button>
+                    <button className="btn mt-6 mx-4" id="add_course" type='submit'>Lägg till kurs</button>
                 </form>
             </article>
         </>

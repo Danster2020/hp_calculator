@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CourseForm from './courseForm/CourseForm';
 import CoursesDisplay from './courseForm/CoursesDisplay';
 import { Course } from './data';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CoursesSummary from './CoursesSummary';
 import { Header } from './Header';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Main() {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -16,6 +16,11 @@ function Main() {
     //         return updatedCourses;
     //     });
     // };
+
+    // useEffect(() => {
+
+    // }, [courses])
+    
 
     const handlePropertyChange = (courseIndex: number, SectionIndex: number, propertyName: string, newValue: any) => {
         setCourses((prevCourses) => {
@@ -35,21 +40,22 @@ function Main() {
         setCourses(updatedCourses)
     };
 
+    function handleUploadedCourses(uCourses:Course[]) {
+        console.log("uCourses");        
+        console.log(uCourses);
+        setCourses(uCourses)
+        console.log("uCourses");
+        console.log(uCourses);
+        
+    }
+
     return <>
 
-        <Header courses={courses}></Header>
+        <Header courses={courses} handleUploadedCourses={handleUploadedCourses}></Header>
 
         <main className="mx-auto max-w-xl mt-10 px-2 py-5 text-blue-100">
 
-            <article className="">
-                <details>
-                    <summary className="">Importera/exportera</summary>
-                    <h3>Exportera</h3>
-                    <button id="export_btn">Exportera</button>
-                    <h3>Importera</h3>
-                    <input type="file" id="fileInput" name="filename" accept=".txt,.json" />
-                </details>
-            </article>
+
 
             <CourseForm setCourses={setCourses}></CourseForm>
 
