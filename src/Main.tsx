@@ -9,19 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function Main() {
     const [courses, setCourses] = useState<Course[]>([]);
 
-    // const handlePropertyChange = (index: number, propertyName: string, newValue: any) => {
-    //     setCourses((prevCourses) => {
-    //         const updatedCourses = [...prevCourses];
-    //         updatedCourses[index].sections[index][propertyName] = newValue;
-    //         return updatedCourses;
-    //     });
-    // };
-
-    // useEffect(() => {
-
-    // }, [courses])
-    
-
     const handlePropertyChange = (courseIndex: number, SectionIndex: number, propertyName: string, newValue: any) => {
         setCourses((prevCourses) => {
             const updatedCourses = [...prevCourses];
@@ -53,9 +40,7 @@ function Main() {
 
         <Header courses={courses} handleUploadedCourses={handleUploadedCourses}></Header>
 
-        <main className="mx-auto max-w-xl mt-10 px-2 py-5 text-blue-100">
-
-
+        <main className="mx-auto max-w-xl mt-20 px-2 py-5 text-blue-100">
 
             <CourseForm setCourses={setCourses}></CourseForm>
 

@@ -34,7 +34,7 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
                 const fileContents = event.target?.result;
                 if (fileContents) {
                     const parsedCoursesData = JSON.parse(fileContents as string);
-                    
+
                     const parsedCourses = parsedCoursesData.map((courseData: any) => {
                         // Recreate the Course instances using parsed data. This is needed
                         // to run object specific functions.
@@ -63,7 +63,7 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
 
                 <div className='self-center space-x-6 sm:mr-4 text-white'>
                     <label className='m-0' htmlFor="fileInput"><FontAwesomeIcon icon="upload" className='cursor-pointer w-6 h-6' /></label>
-                    <input onChange={(e) => handleFileUpload(e)} className='m-0' type="file" id="fileInput" name="filename" accept=".txt,.json"  />
+                    <input onChange={(e) => handleFileUpload(e)} className='m-0' type="file" id="fileInput" name="filename" accept=".txt,.json" hidden />
                     <button onClick={() => exportToJson(props.courses)}>
                         <FontAwesomeIcon icon="floppy-disk" className='w-6 h-6' />
                     </button>
