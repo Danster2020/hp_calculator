@@ -10,7 +10,7 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
 
     useEffect(() => {
         props.handleUploadedCourses(courses);
-      }, [courses]);
+    }, [courses]);
 
     function exportToJson(InputCourses: Course[]) {
         let json_data = JSON.stringify(InputCourses, null, 2)
@@ -45,7 +45,7 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
                         });
 
                         const { id, title, term, total_points } = courseData;
-                        
+
                         // recreate course
                         return new Course(uuid(), title, Number(term), sections, Number(total_points));
                     });
@@ -58,8 +58,11 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
 
     return (
         <header className="fixed w-full top-0">
+            {process.env.NODE_ENV === "development" &&
+                <div className='flex justify-center font-bold bg-yellow-500'>DEV</div>
+            }
             <div className='relative flex justify-between p-4 bg-dark_surf'>
-                <h1 className="text-white">HP Kalkylator</h1>
+                <h1 className="text-white">HP-Kalkylatorn</h1>
 
                 <div className='self-center space-x-6 sm:mr-4 text-white'>
                     <label className='m-0' htmlFor="fileInput"><FontAwesomeIcon icon="upload" className='cursor-pointer w-6 h-6' /></label>

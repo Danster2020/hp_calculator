@@ -5,6 +5,8 @@ import { useState } from 'react';
 import CoursesSummary from './CoursesSummary';
 import { Header } from './Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Footer } from './Footer';
+
 
 
 function Main() {
@@ -42,7 +44,6 @@ function Main() {
         <Header courses={courses} handleUploadedCourses={handleUploadedCourses}></Header>
 
         <main className="mx-auto max-w-xl mt-20 px-2 py-5 text-blue-100">
-
             <CourseForm setCourses={setCourses}></CourseForm>
 
             <article className="">
@@ -58,10 +59,9 @@ function Main() {
                     <CoursesDisplay courses={courses} handleSectionTermChange={handleSectionTermChange} handleCourseDelete={handleCourseDelete}></CoursesDisplay>
                 </div>
             </article>
-
-            <footer>v0.1.0</footer>
-
         </main>
+
+        <Footer></Footer>
     </>
 }
 
