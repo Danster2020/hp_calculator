@@ -46,7 +46,7 @@ const Sections = (props: {
                         <input
                             onChange={(e) => props.handlePointsChange(index, e.target.value)}
                             id="section_points"
-                            className="section_points"
+                            className="section_points w-24"
                             type="number"
                             min="0"
                             max="100"

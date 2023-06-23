@@ -6,6 +6,8 @@ import CoursesSummary from './CoursesSummary';
 import { Header } from './Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Footer } from './Footer';
+import { Toaster, toast } from 'react-hot-toast';
+
 
 
 
@@ -28,18 +30,21 @@ function Main() {
     const handleCourseDelete = (courseID: string) => {
         const updatedCourses = courses.filter(course => course.id !== courseID)
         setCourses(updatedCourses)
+        toast.success("Kurs raderad.")
     };
 
-    function handleUploadedCourses(uCourses:Course[]) {
-        console.log("uCourses");        
+    function handleUploadedCourses(uCourses: Course[]) {
+        console.log("uCourses");
         console.log(uCourses);
         setCourses(uCourses)
         console.log("uCourses");
         console.log(uCourses);
-        
+
     }
 
     return <>
+
+        <Toaster />
 
         <Header courses={courses} handleUploadedCourses={handleUploadedCourses}></Header>
 

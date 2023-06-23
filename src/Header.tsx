@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Course } from './data';
 import { v4 as uuid } from 'uuid';
 import { Section } from './courseForm/Sections';
+import toast from 'react-hot-toast';
 
 export const Header = (props: { courses: Course[], handleUploadedCourses(uCourses: Course[]): void }) => {
 
@@ -24,6 +25,7 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
         a.href = URL.createObjectURL(file);
         a.download = fileName;
         a.click();
+        toast.success("Kurser sparade.")
     }
 
     function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {

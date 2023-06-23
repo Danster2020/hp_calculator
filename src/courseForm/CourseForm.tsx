@@ -3,12 +3,14 @@ import Sections, { Section } from './Sections';
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid';
 import { Course } from '../data';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const CourseForm = (props: { setCourses: any }) => {
 
     let empty_sections: Section[] = []
     const [sections, setSections] = useState(empty_sections);
+
 
     const submitForm = (e: any) => {
         e.preventDefault()
@@ -30,7 +32,7 @@ const CourseForm = (props: { setCourses: any }) => {
             Number(payload.course_points),
         )
         props.setCourses((prevCourses: any) => [...prevCourses, newCourse]);
-
+        toast.success("Kurs " + payload.title.toString() + " Tillagd.")
         console.log(newCourse)
     }
 
@@ -70,13 +72,18 @@ const CourseForm = (props: { setCourses: any }) => {
                 <form className='' onSubmit={submitForm}>
                     <h3>Kurs</h3>
                     <label htmlFor="title">Kursbenämning</label>
-                    <input id="title" name="title" type="text" required />
+                    <input id="title" name="title" type="text" required placeholder='Ex: Matematik, Psykologi..' />
 
-                    <label htmlFor="course_points">Poäng</label>
-                    <input id="course_points" name="course_points" type="number" defaultValue="7.5" />
-
-                    <label htmlFor="term">Läsår</label>
-                    <input id="term" name="term" type="number" defaultValue="1" />
+                    <div className='flex'>
+                        <div className='flex flex-col'>
+                            <label htmlFor="course_points">Poäng</label>
+                            <input className='w-full' id="course_points" name="course_points" type="number" defaultValue="7.5" step="0.5" />
+                        </div>
+                        <div className='ml-4 flex flex-col'>
+                            <label htmlFor="term">Läsår</label>
+                            <input className='w-full' id="term" name="term" type="number" defaultValue="1" />
+                        </div>
+                    </div>
 
                     <div id="sections">
                         <h3>Kursmoment</h3>
