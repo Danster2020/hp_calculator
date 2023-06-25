@@ -57,7 +57,7 @@ const CourseForm = (props: { setCourses: any }) => {
     };
 
     const handleAddSection = () => {
-        const newSection = new Section("Moment" + (sections.length + 1), 5, -1);
+        const newSection = new Section("Moment " + (sections.length + 1), 5, -1);
         setSections([...sections, newSection]);
     };
 
