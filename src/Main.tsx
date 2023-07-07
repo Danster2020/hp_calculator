@@ -1,7 +1,7 @@
 import CourseForm from './courseForm/CourseForm';
 import CoursesDisplay from './courseForm/CoursesDisplay';
 import { Course } from './data';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CoursesSummary from './CoursesSummary';
 import { Header } from './Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +13,21 @@ import { Toaster, toast } from 'react-hot-toast';
 
 function Main() {
     const [courses, setCourses] = useState<Course[]>([]);
+
+    // Warns user of unsaved changes
+    useEffect(() => {
+        const handler = (event: { preventDefault: () => void; returnValue: string; }) => {
+            event.preventDefault();
+            event.returnValue = '';
+
+        };
+
+        window.addEventListener('beforeunload', handler);
+        return () => {
+            window.removeEventListener('beforeunload', handler);
+        };
+
+    }, []);
 
     const handlePropertyChange = (courseIndex: number, SectionIndex: number, propertyName: string, newValue: any) => {
         setCourses((prevCourses) => {
