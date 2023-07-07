@@ -54,7 +54,6 @@ function Main() {
         setCourses(uCourses)
         console.log("uCourses");
         console.log(uCourses);
-
     }
 
     return <>

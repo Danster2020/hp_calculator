@@ -30,32 +30,49 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
 
     function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files && e.target.files[0];
+        let failedReadingFile = false
+
+
         if (file) {
             const reader = new FileReader();
+            let parsedCoursesData = null
             reader.onload = (event) => {
                 const fileContents = event.target?.result;
                 if (fileContents) {
-                    const parsedCoursesData = JSON.parse(fileContents as string);
 
-                    const parsedCourses = parsedCoursesData.map((courseData: any) => {
-                        // Recreate the Course instances using parsed data. This is needed
-                        // to run object specific functions.
+                    try {
+                        parsedCoursesData = JSON.parse(fileContents as string);
 
-                        // recreate sections
-                        const sections = courseData.sections.map((sectionData: any) => {
-                            return new Section(sectionData.title, sectionData.points, Number(sectionData.finish_term));
+                        const parsedCourses = parsedCoursesData.map((courseData: any) => {
+                            // Recreate the Course instances using parsed data. This is needed
+                            // to run object specific functions.
+
+                            // recreate sections
+                            const sections = courseData.sections.map((sectionData: any) => {
+                                return new Section(sectionData.title, sectionData.points, Number(sectionData.finish_term));
+                            });
+
+                            const { id, title, term, total_points } = courseData;
+
+                            // recreate course
+                            return new Course(uuid(), title, Number(term), sections, Number(total_points));
                         });
-
-                        const { id, title, term, total_points } = courseData;
-
-                        // recreate course
-                        return new Course(uuid(), title, Number(term), sections, Number(total_points));
-                    });
-                    setCourses(parsedCourses);
+                        setCourses(parsedCourses);
+                        toast.success("Kurser tillagda.")
+                    } catch (error) {
+                        toast.error("Kunde inte läsa in kurser.")
+                    }
                 }
             };
+
+
             reader.readAsText(file);
         }
+
+
+
+
+
     }
 
     return (
