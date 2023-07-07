@@ -71,7 +71,7 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
     }
 
     return (
-        <header className="fixed w-full top-0">
+        <header className="fixed w-full top-0 z-10">
             {process.env.NODE_ENV === "development" &&
                 <div className='flex justify-center font-bold bg-yellow-500'>DEV</div>
             }

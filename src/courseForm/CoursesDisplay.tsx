@@ -21,11 +21,11 @@ const CoursesDisplay = (props: { courses: Course[], handleSectionTermChange: any
 
                     <summary>
                         <div>
-                            <span>{course.title}</span>
+                            <span className='font-semibold'>{course.title}</span>
                             <br />
-                            <span>{course.calcCompletedPoints()} av {course.total_points} HP</span>
+                            <span className=''>{course.calcCompletedPoints()} av {course.total_points} HP</span>
                         </div>
-                        <div className='summary_icon h-6 w-6 justify-center align-middle text-center' ><FontAwesomeIcon icon="chevron-right" className='block my-1 mx-auto'/></div>
+                        <div className='summary_icon h-6 w-6 justify-center align-middle text-center' ><FontAwesomeIcon icon="chevron-right" className='block my-1 mx-auto' /></div>
                     </summary>
 
                     <div className='details_body'>

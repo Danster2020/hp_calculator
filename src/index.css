@@ -29,7 +29,7 @@
   }
 
   form {
-    @apply flex flex-col rounded-md bg-dark_surf m-4  py-4;
+    @apply flex flex-col rounded-md bg-dark_surf m-4 py-4;
   }
 
   summary {
@@ -41,7 +41,7 @@
   }
 
   .summary_block li {
-    @apply mb-4 ml-2;
+    @apply text-lg;
   }
 
   input {
@@ -63,7 +63,7 @@
   }
 
   .btn_pill {
-    @apply border-2 text-cyan-300 border-cyan-800 bg-cyan-950  hover:bg-cyan-900 text-center align-middle px-3 py-2 rounded-3xl outline-none self-baseline;
+    @apply border-2 text-cyan-300 border-cyan-800 bg-cyan-950 hover:bg-cyan-900 text-center align-middle px-3 py-2 rounded-3xl outline-none self-baseline;
   }
 
   .btn_small {
