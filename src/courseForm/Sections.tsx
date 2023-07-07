@@ -29,7 +29,7 @@ const Sections = (props: {
     return (
         <>
             {props.sections.map((item: Section, index: number) => (
-                <details key={index} id={`section_id#${index}`} className="section_block">
+                <details key={index} id={`section_id_${index}`} className="section_block">
                     <summary>
                         <span>{item.title}</span>
                         <div className='summary_icon' ><FontAwesomeIcon icon="chevron-right" /></div>
