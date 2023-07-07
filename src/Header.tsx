@@ -68,11 +68,6 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
 
             reader.readAsText(file);
         }
-
-
-
-
-
     }
 
     return (
