@@ -76,7 +76,8 @@ export const Header = (props: { courses: Course[], handleUploadedCourses(uCourse
                 <div className='flex justify-center font-bold bg-yellow-500'>DEV</div>
             }
             <div className='relative flex justify-between p-4 bg-dark_surf'>
-                <h1 className="text-white">HP-Kalkylatorn</h1>
+                <h1 className="text-white">HP-Kalkylatorn<span className='bg-blue-600 ml-3 px-2 text-white rounded-lg'>Beta</span></h1>
+
 
                 <div className='self-center space-x-6 sm:mr-4 text-white'>
                     <label className='m-0' htmlFor="fileInput"><FontAwesomeIcon icon="upload" className='cursor-pointer w-6 h-6' /></label>
