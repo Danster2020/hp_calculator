@@ -50,8 +50,20 @@ const CoursesSummary = (props: { courses: Course[] }) => {
     function handleNrOfTermsUpdate() {
         setnrOfTerms(calcNrOfTerms())
         console.log("totalNrOfTerms: " + totalNrOfTerms);
+    }
 
+    function isOverGoal(current: number, max: number) {
+        if (current >= max) {
+            return true
+        }
+        return false
+    }
 
+    function ringColor(isOverGoal: boolean) {
+        if (isOverGoal) {
+            return "#65a30d"
+        }
+        return "#c2410c"
     }
 
 
@@ -77,8 +89,17 @@ const CoursesSummary = (props: { courses: Course[] }) => {
                                 </div>
                                 <div>
                                     <div className='w-20 sm:w-32'>
-                                        <CircularProgressbarWithChildren value={calcTermFinishedPoints(index + 1)} maxValue={CSN_GOAL} text={`${CSN_GOAL - calcTermFinishedPoints(index + 1)} HP`} >
-                                            <span className='mt-8 sm:mt-12 text-xs sm:text-base font-bold text-gray-500'>CSN</span>
+                                        <CircularProgressbarWithChildren
+                                            styles={{
+                                                path:
+                                                    { stroke: ringColor(isOverGoal(calcTermFinishedPoints(index + 1), CSN_GOAL)) },
+                                                trail: {
+                                                    stroke: '#374151',
+                                                },
+                                            }}
+                                            value={calcTermFinishedPoints(index + 1)}
+                                            maxValue={CSN_GOAL} text={`${CSN_GOAL - calcTermFinishedPoints(index + 1)} HP`} >
+                                            <span className="mt-8 sm:mt-12 text-xs sm:text-base font-bold text-gray-500">Till CSN</span>
                                         </CircularProgressbarWithChildren>
                                     </div>
                                 </div>
