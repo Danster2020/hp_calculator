@@ -2,10 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Course } from '../data'
 import { Section } from './Sections'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { v4 as uuid } from 'uuid';
 
 const CoursesDisplay = (props: { courses: Course[], handleSectionTermChange: any, handleCourseDelete: any }) => {
 
     const [mycourses, setMyCourses] = useState<Course[]>(props.courses);
+    const [openState, setOpenState] = useState(false);
+
+    function onDelete() {
+        setOpenState(false)
+    }
+
+    function onSectionChange() {
+        setOpenState(true)
+    }
 
     useEffect(() => {
         setMyCourses(props.courses);
@@ -17,7 +27,7 @@ const CoursesDisplay = (props: { courses: Course[], handleSectionTermChange: any
         <>
             {mycourses.length === 0 && <div>Inga kurser tillagda.</div>}
             {mycourses.map((course: Course, courseIndex: number) => (
-                <details key={courseIndex}>
+                <details key={uuid()} open={openState}>
 
                     <summary>
                         <div>
@@ -40,7 +50,10 @@ const CoursesDisplay = (props: { courses: Course[], handleSectionTermChange: any
                                     <h4>{section.title}</h4>
                                     <p>Poäng: {section.points} HP</p>
                                     <label htmlFor="section_term">Status</label>
-                                    <select onChange={(e) => props.handleSectionTermChange(courseIndex, sectionIndex, e.target.value)} name="section_term" className="section_term" defaultValue={section.finish_term}>
+                                    <select onChange={(e) => {
+                                        props.handleSectionTermChange(courseIndex, sectionIndex, e.target.value)
+                                        // TODO prevent auto closing after change. setOpenState(true)
+                                    }} name="section_term" className="section_term" defaultValue={section.finish_term}>
                                         <option value="-1">Ej avklarad</option>
                                         <option value="1">Avklarad år 1</option>
                                         <option value="2">Avklarad år 2</option>
@@ -53,7 +66,10 @@ const CoursesDisplay = (props: { courses: Course[], handleSectionTermChange: any
                         </div>
                         <button
                             type="button"
-                            onClick={() => props.handleCourseDelete(course.id)}
+                            onClick={() => {
+                                props.handleCourseDelete(course.id)
+                                onDelete()
+                            }}
                             className="btn btn_small btn_red outline"><FontAwesomeIcon icon="trash" />
                         </button>
                     </div>
